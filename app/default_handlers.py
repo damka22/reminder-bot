@@ -1,4 +1,5 @@
 import os
+import logging
 
 from aiogram import Router
 from aiogram.filters import Command, CommandStart
@@ -13,14 +14,9 @@ from database.orm_query import orm_get_reminds
 
 router_default_handlers = Router()
 
-class ChangeLang(StatesGroup):
-    lang: str = State()
-
 
 @router_default_handlers.message(CommandStart())
-async def start(message: Message, session: AsyncSession):
-    # if user not in db, create it
-
+async def start(message: Message):
     await message.reply("Hola!")
 
 # по приколу пока что фотка
@@ -35,10 +31,14 @@ async def help_msg(message: Message):
     except Exception:
         await message.answer("ステップ左、ステップ右-2ステップ")
 
-# show all reminders as inline button
+# show all reminders as inline buttons
 @router_default_handlers.message(Command("menu"))
 async def menu(message: Message, session: AsyncSession):
-    reminders = await orm_get_reminds(session)
-    if reminders:
-        await message.answer("меню", reply_markup=kb.reminders_keyboard(reminders))
-    else: await message.answer("нет активных напоминаний")
+    try:
+        reminders = await orm_get_reminds(session)
+        if reminders:
+            await message.answer("меню", reply_markup=kb.reminders_keyboard(reminders))
+        else: await message.answer("нет активных напоминаний")
+    except Exception as e:
+        await message.answer("Возникла ошибка при выводе напоминаний")
+        logging.error(e)

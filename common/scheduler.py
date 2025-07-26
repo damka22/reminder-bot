@@ -10,20 +10,20 @@ from database.orm_query import orm_delete_remind
 from config.config import TIMEZONE
 
 # каждые 5 секунд проверяет бд
-# напоминания у которых статус active и их время(remind_at) меньше текущего - пишет пользователю
+# напоминания у которых статус active и их время(time) меньше текущего - пишет пользователю
 async def reminder_scheduler(bot):
     while True:
         async with session_maker() as session:
             now = datetime.now(tz=ZoneInfo(TIMEZONE))
 
             result = await session.execute(
-                select(Remind).where(Remind.remind_at <= now,
+                select(Remind).where(Remind.time <= now,
                                      Remind.status == "active")
             )
             reminders = result.scalars().all()
 
             to_delete = await session.execute(
-                select(Remind).where(Remind.remind_at <= now - timedelta(days=1),
+                select(Remind).where(Remind.time <= now - timedelta(days=1),
                                      Remind.status != "active")
             )
             to_delete = to_delete.scalars().all()

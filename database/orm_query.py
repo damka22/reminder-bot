@@ -8,30 +8,32 @@ async def orm_add_remind(session: AsyncSession, data: dict, tg_id: int):
     obj = Remind(
         tg_id=int(tg_id),
         text=data['text'],
-        time=int(data['time']),
-        remind_at_str=str(data['end_time']),
-        remind_at=data['remind_at'],
+        time=data['time'],
+        remind_at_str=str(data['remind_at_str']),
     )
     session.add(obj)
     await session.commit()
     return obj.id
-
 async def orm_get_reminds(session: AsyncSession):
     query = select(Remind).where(Remind.status == "active")
     result = await session.execute(query)
-    return result.scalars().all()
+    items = result.scalars().all()
+    return items
 
 async def orm_get_remind(session: AsyncSession, remind_id: int, tg_id: int):
     query = select(Remind).where(Remind.id == remind_id, Remind.tg_id==tg_id)
     result = await session.execute(query)
-    return result.scalar()
+    item = result.scalar()
+    if item is None:
+        raise Exception(f"Reminder with id={remind_id} and tg_id={tg_id} not found in db")
+
+    return item
 
 async def orm_update_remind(session: AsyncSession, remind_id: int, tg_id: int, data: dict):
     query = update(Remind).where(Remind.id == remind_id, Remind.tg_id == tg_id).values(
         text=data['text'],
-        time=int(data['time']),
-        remind_at_str=str(data['end_time']),
-        remind_at=data['remind_at'],
+        time=data['time'],
+        remind_at_str=str(data['remind_at_str']),
     )
     await session.execute(query)
     await session.commit()
