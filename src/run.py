@@ -1,17 +1,17 @@
 import asyncio
 import logging
 
-from config.config import TOKEN, ADMIN_ID
+from src.config.config import TOKEN, ADMIN_ID
 
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
-from app.callbacks import router_callbacks
-from app.default_handlers import router_default_handlers
-from app.remind_handlers import router_remind_handlers
-from common.bot_cmd_list import private_chat
-from common.scheduler import reminder_scheduler
-from database.engine import create_db, drop_db, session_maker
-from middlewares.db import DataBaseSession
+from src.app.callbacks import router_callbacks
+from src.app.default_handlers import router_default_handlers
+from src.app.remind_handlers import router_remind_handlers
+from src.common.bot_cmd_list import private_chat
+from src.common.scheduler import reminder_scheduler
+from src.database.engine import create_db, drop_db, session_maker
+from src.middlewares.db import DataBaseSession
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()

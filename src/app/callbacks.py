@@ -7,10 +7,10 @@ from aiogram.filters import StateFilter
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.keyboard import edit_remind_keyboard, reminders_keyboard
-from database.orm_query import orm_add_remind, orm_delete_remind, orm_get_remind, orm_get_reminds
-from common.time_helper import set_beutfiul_time
-from app.remind_handlers import Remind
+from src.app.keyboard import edit_remind_keyboard, reminders_keyboard
+from src.database.orm_query import orm_add_remind, orm_delete_remind, orm_get_remind, orm_get_reminds
+from src.common.time_helper import set_beutfiul_time
+from src.app.remind_handlers import Remind
 
 router_callbacks = Router()
 

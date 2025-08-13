@@ -11,11 +11,11 @@ import dateparser
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-import app.keyboard as kb
-from database.orm_query import orm_update_remind
-from common.time_helper import set_beutfiul_time
-from config.config import TIMEZONE
-from common.preprocess_time import preprocess_time_input
+import src.app.keyboard as kb
+from src.database.orm_query import orm_update_remind
+from src.common.time_helper import set_beutfiul_time
+from src.config.config import TIMEZONE
+from src.common.preprocess_time import preprocess_time_input
 
 router_remind_handlers = Router()
 

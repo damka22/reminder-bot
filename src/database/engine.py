@@ -3,8 +3,8 @@ import sys
 from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from database.models import Base, Remind
-from config.config import DB_LITE
+from src.database.models import Base, Remind
+from src.config.config import DB_LITE
 
 
 try:

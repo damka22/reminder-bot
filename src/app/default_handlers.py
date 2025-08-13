@@ -3,13 +3,12 @@ import logging
 
 from aiogram import Router
 from aiogram.filters import Command, CommandStart
-from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import FSInputFile, Message
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-import app.keyboard as kb
-from database.orm_query import orm_get_reminds
+import src.app.keyboard as kb
+from src.database.orm_query import orm_get_reminds
 
 
 router_default_handlers = Router()

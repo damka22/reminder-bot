@@ -4,10 +4,10 @@ from zoneinfo import ZoneInfo
 
 from sqlalchemy import select
 
-from database.engine import session_maker
-from database.models import Remind
-from database.orm_query import orm_delete_remind
-from config.config import TIMEZONE
+from src.database.engine import session_maker
+from src.database.models import Remind
+from src.database.orm_query import orm_delete_remind
+from src.config.config import TIMEZONE
 
 # каждые 5 секунд проверяет бд
 # напоминания у которых статус active и их время(time) меньше текущего - пишет пользователю

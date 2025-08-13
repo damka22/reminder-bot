@@ -1,7 +1,7 @@
 from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.models import Remind
+from src.database.models import Remind
 
 # orm for reminds
 async def orm_add_remind(session: AsyncSession, data: dict, tg_id: int):
