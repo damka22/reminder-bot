@@ -1,5 +1,5 @@
 reminder_bot/pictures/
-remind_base.db
+reminder_bot/data/remind_base.db
 TODO.md
 reminder_bot/tests/
 
