@@ -2,21 +2,11 @@ version: '3.8'
 
 services:
   bot:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: reminder_bot
     env_file: .env
     volumes:
-      - ./remind_base.db:/app/remind_base.db:rw
+      - ./reminder_bot/data/remind_base.db:/src/remind_base.db:rw
     restart: unless-stopped
-    read_only: true
-    tmpfs:
-      - /tmp:exec,nosuid,nodev,size=100m
-    security_opt:
-      - no-new-privileges:true
-    networks:
-      - bot_network
-
-networks:
-  bot_network:
-    driver: bridge
-    internal: false

@@ -1,13 +1,19 @@
+FROM python:3.13-slim as builder
+
+RUN pip install uv
+
+WORKDIR /src
+
+COPY pyproject.toml .
+
+RUN uv venv && uv sync --no-cache
+
 FROM python:3.13-slim
 
-WORKDIR /app
+WORKDIR /src
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --from=builder /src/.venv .venv
 
 COPY . .
 
-RUN useradd -m -u 1000 botuser && chown -R botuser:botuser /app
-USER botuser
-
-CMD ["python", "run.py"]
+CMD ["/src/.venv/bin/python", "-m", "reminder_bot"]
