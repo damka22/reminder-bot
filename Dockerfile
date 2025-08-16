@@ -6,7 +6,7 @@ WORKDIR /src
 
 COPY pyproject.toml .
 
-RUN uv venv && uv sync --no-cache
+RUN uv venv && uv sync
 
 FROM python:3.13-slim
 
