@@ -99,7 +99,6 @@ async def second_process_time(message: Message, state: FSMContext, session: Asyn
             if data['time'] == Remind.remind_for_change.time:
                 # если время не менялось
                 data['end_time'] = Remind.remind_for_change.remind_at_str
-                data['remind_at'] = Remind.remind_for_change.remind_at
                 remind_id = Remind.remind_for_change.id
                 await orm_update_remind(session, remind_id, message.from_user.id, data)
                 await state.clear()
