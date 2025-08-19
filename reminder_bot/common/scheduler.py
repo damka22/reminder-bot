@@ -30,7 +30,9 @@ async def reminder_scheduler(bot):
 
             for remind in reminders:
                 try:
-                    await bot.send_message(chat_id=remind.tg_id, text=f"⏰ Напоминание: {remind.text}")
+                    if remind.time + timedelta(minutes=1) >= now: # чтобы те напоминания,
+                                     # которые остались при выключенном боте не выводились слишком поздно
+                        await bot.send_message(chat_id=remind.tg_id, text=f"⏰ Напоминание: {remind.text}")
                     remind.status = "done"
                 except Exception as e:
                     print(f"Ошибка при отправке напоминания: {e}")
